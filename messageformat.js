@@ -1368,8 +1368,16 @@
           }
           else if ( ast.key === 'plural' ) {
             data.offset[data.pf_count || 0] = ast.val.offset || 0;
+            
+            //****************************
+            //Modified by Tomás Ruiz <tomsaruizr@gmail.com> in order to avoid sending the current language to the client
+            //since it is loaded directly from the server and is the only language in the client side by the tieme of execution.
+            //Original:
+            // return self.globalName + '.p(d,' + data.keys[data.pf_count] + ',' + (data.offset[data.pf_count] || 0)
+            //   + ',"' + self.lc + '",' + interpMFP( ast.val, data ) + ')';
+            //****************************
             return self.globalName + '.p(d,' + data.keys[data.pf_count] + ',' + (data.offset[data.pf_count] || 0)
-              + ',"' + self.lc + '",' + interpMFP( ast.val, data ) + ')';
+              + ',"' + interpMFP( ast.val, data ) + ')';
           }
           return '';
         /* // Unreachable cases.
